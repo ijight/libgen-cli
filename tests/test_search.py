@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from urllib.parse import parse_qs, urlparse
+
 import httpx
 import pytest
 import respx
@@ -17,26 +19,39 @@ from libgen_cli.search import (
 )
 
 
-def test_build_search_url_basic() -> None:
-    url = build_search_url("https://libgen.li", "tolkien", topic=Topic.FICTION)
+def _params(url: str) -> dict[str, list[str]]:
+    return parse_qs(urlparse(url).query)
+
+
+def test_build_search_url_uses_php_array_notation() -> None:
+    url = build_search_url("https://libgen.li", "tolkien", topics=Topic.FICTION)
     assert url.startswith("https://libgen.li/index.php?")
-    assert "topics=f" in url
-    assert "req=tolkien" in url
-    assert "view=simple" in url
-    assert "phrase=1" in url
+    params = _params(url)
+    assert params["topics[]"] == ["f"]
+    assert "topics" not in params, "must use topics[] not topics="
+    assert params["req"] == ["tolkien"]
+    assert params["view"] == ["simple"]
+    assert params["phrase"] == ["1"]
+
+
+def test_build_search_url_multi_topic_in_one_request() -> None:
+    url = build_search_url("https://libgen.li", "x", topics=(Topic.NONFIC, Topic.FICTION))
+    params = _params(url)
+    assert sorted(params["topics[]"]) == ["f", "l"]
 
 
 def test_build_search_url_paging_and_results() -> None:
     url = build_search_url(
         "https://libgen.li",
         "rust",
-        topic=Topic.NONFIC,
+        topics=Topic.NONFIC,
         results_per_page=50,
         page=3,
     )
-    assert "topics=l" in url
-    assert "res=50" in url
-    assert "page=3" in url
+    params = _params(url)
+    assert params["topics[]"] == ["l"]
+    assert params["res"] == ["50"]
+    assert params["page"] == ["3"]
 
 
 def test_build_search_url_rejects_empty_query() -> None:
@@ -44,9 +59,15 @@ def test_build_search_url_rejects_empty_query() -> None:
         build_search_url("https://libgen.li", "   ")
 
 
+def test_build_search_url_rejects_empty_topics() -> None:
+    with pytest.raises(SearchError):
+        build_search_url("https://libgen.li", "x", topics=())
+
+
 def test_build_search_url_clamps_results_to_allowed() -> None:
     url = build_search_url("https://libgen.li", "x", results_per_page=42)
-    assert "res=50" in url or "res=25" in url
+    params = _params(url)
+    assert params["res"][0] in {"25", "50"}
 
 
 @respx.mock
@@ -89,23 +110,23 @@ def test_search_topic_raises_when_all_mirrors_fail() -> None:
 
 
 @respx.mock
-def test_search_combines_topics_and_dedupes_md5(
+def test_search_sends_topics_array_in_single_request(
     nonfic_html: str,
-    fiction_html: str,
 ) -> None:
-    """The same MD5 returned for both topics appears only once."""
+    """One HTTP call per attempted mirror with all topics packed in topics[]."""
+    seen_topic_lists: list[list[str]] = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        topics = request.url.params.get("topics")
-        if topics == "l":
-            return httpx.Response(200, text=nonfic_html)
-        if topics == "f":
-            return httpx.Response(200, text=fiction_html)
-        return httpx.Response(404)
+        seen_topic_lists.append(request.url.params.get_list("topics[]"))
+        return httpx.Response(200, text=nonfic_html)
 
-    respx.get("https://libgen.li/index.php").mock(side_effect=handler)
+    route = respx.get("https://libgen.li/index.php").mock(side_effect=handler)
     with make_client() as client:
-        books = search(client, ["https://libgen.li"], "python")
+        books = search(
+            client, ["https://libgen.li"], "python", topics=(Topic.NONFIC, Topic.FICTION)
+        )
+    assert route.call_count == 1, "expected a single HTTP request per mirror"
+    assert seen_topic_lists == [["l", "f"]]
     md5s = [b.md5 for b in books]
     assert len(md5s) == len(set(md5s))
 

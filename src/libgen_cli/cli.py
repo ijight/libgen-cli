@@ -343,7 +343,7 @@ def cmd_download(
     out: Annotated[
         Path,
         typer.Option("-o", "--out", help="Output directory."),
-    ] = Path("./books"),
+    ] = Path("."),
     bulk: Annotated[
         Path | None,
         typer.Option("-b", "--bulk", help="Read MD5s from a file (one per line)."),
@@ -446,7 +446,7 @@ def cmd_pick(
             help="Filter by year, e.g. 2020 or 2010-2020.",
         ),
     ] = None,
-    out: Annotated[Path, typer.Option("-o", "--out", help="Output directory.")] = Path("./books"),
+    out: Annotated[Path, typer.Option("-o", "--out", help="Output directory.")] = Path("."),
     concurrency: Annotated[
         int, typer.Option("-j", "--concurrency", help="Parallel downloads.")
     ] = 4,

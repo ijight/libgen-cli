@@ -47,12 +47,10 @@ def test_search_command_emits_ndjson_when_piped(
     import httpx
 
     def handler(request: httpx.Request) -> httpx.Response:
-        topics = request.url.params.get("topics")
-        if topics == "l":
-            return httpx.Response(200, text=nonfic_html)
-        if topics == "f":
+        topics = request.url.params.get_list("topics[]")
+        if "f" in topics:
             return httpx.Response(200, text=fiction_html)
-        return httpx.Response(404)
+        return httpx.Response(200, text=nonfic_html)
 
     respx.get("https://libgen.li/index.php").mock(side_effect=handler)
     respx.route().pass_through()
@@ -135,12 +133,10 @@ def test_search_ext_filter_narrows_results(
     import httpx
 
     def handler(request: httpx.Request) -> httpx.Response:
-        topics = request.url.params.get("topics")
-        if topics == "l":
-            return httpx.Response(200, text=nonfic_html)
-        if topics == "f":
+        topics = request.url.params.get_list("topics[]")
+        if "f" in topics:
             return httpx.Response(200, text=fiction_html)
-        return httpx.Response(404)
+        return httpx.Response(200, text=nonfic_html)
 
     respx.get("https://libgen.li/index.php").mock(side_effect=handler)
     respx.route().pass_through()
