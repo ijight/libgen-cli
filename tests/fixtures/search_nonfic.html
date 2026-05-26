@@ -1,0 +1,1084 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="max-age=604800, must-revalidate">
+	<meta name="rating" content="general">
+	<!--<link href="/rss/index.php" rel="alternate" type="application/rss+xml" title="News" />-->
+	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+	<title>Library Genesis</title>
+		
+	<!--[if IE 6]>
+	<style>
+		body {behavior: url("/csshover3.htc");}
+		#menu li .drop {background:url("img/drop.gif") no-repeat right 8px; 
+	</style>
+	<![endif]-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">	
+	
+<link href="/css/font.min.css" rel="stylesheet">	
+<style>
+nav.navbar .dropdown:hover > .dropdown-menu {
+ display: block; 
+}
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+			font-size: 3.5rem;
+		}
+	}
+
+.panel-heading .accordion-toggle:after {
+    font-family: "Glyphicons Halflings";  
+    content: "\e114";    
+    float: right;       
+    color: grey;         
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";   
+}
+.tooltip-inner {
+    max-width: 350px;
+    width: 350px; 
+}
+h1 {
+	display: block; 
+	font-size: 1.8rem; 
+	font-weight: bold; 
+	font-family: Georgia, "Times New Roman", Times, serif;  color: #A00000; 
+}
+#tablelibgen td { 
+	font-family: "Pt Sans", Tahoma, Helvetica, sans-serif; 
+	margin: 0; 
+	padding: 0em 3px; 
+	font-size: 1rem;
+}
+
+#tablelibgen1 td { 
+	font-family: "Pt Sans", Tahoma, Helvetica, sans-serif; 
+	margin: 0; 
+	padding: 0em 3px; 
+	font-size: 1rem;
+}
+
+.taghide {
+    display: none; 
+}
+.taghide + label ~ div {
+    display: none;
+}
+/* оформляем текст label */
+.taghide + label {
+    display: inline-block; 
+}
+/* вид текста label при активном переключателе */
+
+/* когда чекбокс активен показываем блоки с содержанием  */
+.taghide:checked + label + div {
+    display: block; 
+}
+
+
+
+/*.navbar {
+	background-color: #BBBBBB;
+}*/
+	</style>
+
+	<link rel="stylesheet" href="/css/dark-mode.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="../css/paginator3000.css" />
+<script type="text/javascript" src="../js/paginator3000.js"></script><script type='text/javascript' src='//inopportunefable.com/28/4b/51/284b513767b1a27086dec8171527696f.js'></script>
+
+
+
+
+</head>
+<body>    
+<nav class="navbar navbar-expand-md navbar-dark bg-secondary  mb-1">
+  
+   <a class="navbar-brand" href="/index.php">
+    <img src="/img/logo.png"  height="30" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/community/app.php/article/news">NEWS <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/community/">FORUM <span class="sr-only">(current)</span></a>
+      </li>
+	
+      <li class="nav-item dropdown">
+<a class="btn btn-secondary dropdown-toggle" href="/community/ucp.php?mode=login" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          LOGIN
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">    
+          <a class="dropdown-item" href="/community/ucp.php?mode=register">Register</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          DOWNLOAD
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">      
+
+          <a class="dropdown-item" href="/mirrors.php">Mirrors</a>
+          <a class="dropdown-item" href="http://libgenfrialc7tguyjywa36vtrdcplwpxaw43h6o63dmmwhvavo5rqqd.onion/">TOR</a>
+
+	<div class="dropdown-divider"></div>
+         <h6 class="dropdown-header">P2P</h6>
+          <a class="dropdown-item" href="/torrents/">Torrents</a>
+          <a class="dropdown-item" href="https://ipdl.cat/data/torrents.html">Torrents status</a>
+          <a class="dropdown-item" href="/nzb/">Usenet (*.nzb)</a>
+          <a class="dropdown-item" href="/soft/">Soft</a>
+	<!--https://phillm.net/libgen-stats-table.php-->
+
+
+
+
+	<div class="dropdown-divider"></div>
+         <h6 class="dropdown-header">DB Dumps</h6>
+          <a class="dropdown-item" href="/dirlist.php?dir=dbdumps">Libgen</a>
+          <a class="dropdown-item" href="http://libgen.rs/dbdumps/">libgen.rs (gen.lib.rus.ec)</a>
+
+	<!--<div class="dropdown-divider"></div>
+ 	 <a class="dropdown-item" href="/magz0/">Unsorted magz</a>
+ 	 <a class="dropdown-item" href="/fict0/">Unsorted fiction</a>
+
+	 <a class="dropdown-item" href="/comics4/">Unsorted comics</a>
+        </div>-->
+
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="librarian.php" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          UPLOAD
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">  
+          <a class="dropdown-item" href="ftp://ftp.libgen.bz/upload/">FTP</a> 
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="/index.php?req=fmode:last&topics1=all" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          LAST
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+	<a class="dropdown-item" href="/index.php?req=fmode:last&topics1=all"><b>Files</b></a>
+
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=l">Libgen</a>
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=a">Scientific Articles</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=f">Fiction</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=c">Comics</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=m">Magazines</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=s">Standards</a> 
+          <a class="dropdown-item" href="/index.php?req=fmode:last&topics%5B%5D=r">Fiction RUS</a>
+	<div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=e">Editions</a> 
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=s">Series</a>
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=p">Publishers</a> 
+        <!--  <a class="dropdown-item" href="/index.php?req=mode:last&curtab=f">Files</a> -->
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=a">Authors</a> 
+          <a class="dropdown-item" href="/index.php?req=mode:last&curtab=w">Works</a>
+
+
+  
+        </div>
+
+
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          OTHERS
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdown01">  
+          <a class="dropdown-item" href="json.php">API</a> 
+          <a class="dropdown-item" href="rss.php">RSS</a> 
+          <a class="dropdown-item" href="top.php">Top 100 users</a> 
+          <a class="dropdown-item" href="stat.php">Stats</a>
+
+	<a class="dropdown-item" href="topics.php">Topics</a>
+
+          <a class="dropdown-item" href="batchsearchindex.php">Batch search</a>  
+          <a class="dropdown-item" href="biblioservice.php">Bibliographic services</a>
+          <a class="dropdown-item" href="https://wiki.mhut.org/software:libgen_desktop">Libgen librarian for desktop</a>
+
+
+          <a class="dropdown-item" href="/code/">Source (PHP)</a>
+          <a class="dropdown-item" href="/soft/">LG soft</a>
+          <!--<a class="dropdown-item" href="/import/">Import local files in LG format</a>-->
+          <a class="dropdown-item" href="https://z-library.se/fulltext/">Full text search</a>
+
+
+
+        </div>
+      </li>
+
+
+
+     <!-- <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="topics.php" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          Topics
+        </a>
+      </li>
+-->
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          LINKS
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdown01">  
+
+
+          
+          <a class="dropdown-item" href="http://sci-hub.ru">Sci-hub</a> 
+          <a class="dropdown-item" href="http://magzdb.org">Magzdb.org</a>
+
+          <a class="dropdown-item" href="http://nlr.ru/rlin/Periodika_rus.php">РНБ</a>
+          <a class="dropdown-item" href="http://rsl.ru/">РГБ</a>
+          <a class="dropdown-item" href="http://loc.gov/">LOC</a>
+          <a class="dropdown-item" href="https://comicvine.gamespot.com/">ComicVine</a>
+          <a class="dropdown-item" href="http://cyberleninka.ru/">Cyberleninka</a>
+          <a class="dropdown-item" href="http://lib.rus.ec/">Lib.rus.ec</a>
+          <a class="dropdown-item" href="http://flibusta.net/">Flibusta.net</a>
+          <a class="dropdown-item" href="http://goodreads.com/">Goodreads.com</a>
+          <a class="dropdown-item" href="http://worldcat.org/">Worldcat.org</a>
+          <a class="dropdown-item" href="https://wiki.archiveteam.org/">Archive team</a>
+          <a class="dropdown-item" href="https://www.reddit.com/r/libgen/">Reddit</a>
+          <a class="dropdown-item" href="http://annas-archive.org/">Anna's Archive</a>
+          <a class="dropdown-item" href="https://welib.org/">Welib</a>
+          <a class="dropdown-item" href="https://open-slum.org/">The Shadow Library Uptime Monitor</a>
+
+        </div>
+
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary" href="index.php?req=mode:req&curtab=e" role="button" id="dropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+          WANTED
+        </a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="nav-link">
+
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="darkSwitch">
+      <label class="custom-control-label" for="darkSwitch">🌓</label>
+    </div>
+    <script src="/js/dark-mode-switch.js"></script>
+  </div>
+   <a class="navbar-brand" href="setlang.php?req=python&topics=l&res=25&view=simple&lang=ru">RU</a>
+</nav>
+<form class="card p-2 needs-validation" novalidate id="formlibgen" action="index.php" enctype="multipart/form-data" METHOD="GET">
+<div class="input-group mb-3" >
+	<input autofocus type="text" class="form-control" placeholder="Input value" name="req" aria-label="input text" aria-describedby="button-addon2" value="python" required>
+	<div class="input-group-append">
+	<button class="btn btn-outline-secondary"  id="button-addon2" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&#128269;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+	</div>
+
+	<div class="invalid-feedback">Input value</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-8">	
+			<div class="d-block" id="topic">
+				<strong>Search in fields:</strong>
+				<input type="checkbox" checked class="column-input" id="colt" name="columns[]" value="t">
+				<label class="column-label" for="coltitle">Title</label>
+				<input type="checkbox" checked class="column-input" id="cola" name="columns[]" value="a">
+				<label class="column-label" for="colauthor">Author(s)</label>
+				<input type="checkbox" checked class="column-input" id="cols" name="columns[]" value="s">
+				<label class="column-label" for="colseries">Series</label>
+				<input type="checkbox" checked class="column-input" id="coly" name="columns[]" value="y">
+				<label class="column-label" for="colyear">Year</label>
+				<input type="checkbox" checked class="column-input" id="colp" name="columns[]" value="p">
+				<label class="column-label" for="colpublisher">Publisher</label>
+				<input type="checkbox" checked class="column-input" id="coli" name="columns[]" value="i">
+				<label class="column-label" for="colisbn">ISBN</label>
+	  		</div>
+	
+	  		<div class="d-block" id="object">
+				<strong>Search in objects:</strong>
+				<input type="checkbox" checked class="column-input" id="objf" name="objects[]" value="f">
+				<label class="column-label" for="objf">Files</label>
+				<input type="checkbox" checked class="column-input" id="obje" name="objects[]" value="e">
+				<label class="column-label" for="obje">Editions</label>
+				<input type="checkbox" checked class="column-input" id="objs" name="objects[]" value="s">
+				<label class="column-label" for="objs">Series</label>
+				<input type="checkbox" checked class="column-input" id="obja" name="objects[]" value="a">
+				<label class="column-label" for="obja">Authors</label>
+				<input type="checkbox" checked class="column-input" id="objp" name="objects[]" value="p">
+				<label class="column-label" for="objp">Publishers</label>
+				<input type="checkbox" checked class="column-input" id="objw" name="objects[]" value="w">
+				<label class="column-label" for="objw">Works</label>
+			</div>
+			<div class="d-block" id="column">
+				<strong>Search in topics :</strong>
+				<input type="checkbox" checked class="column-input" id="topl" name="topics[]" value="l" >
+				<label class="column-label" for="topl">Libgen</label>
+				<input type="checkbox" checked class="column-input" id="topc" name="topics[]" value="c" >
+				<label class="column-label" for="topc">Comics</label>
+				<input type="checkbox" checked class="column-input" id="topf" name="topics[]" value="f" >
+				<label class="column-label" for="topf">Fiction</label>
+				<input type="checkbox" checked class="column-input" id="topa" name="topics[]" value="a" >
+				<label class="column-label" for="topa">Scientific Articles</label>
+				<input type="checkbox" checked class="column-input" id="topm" name="topics[]" value="m" >
+				<label class="column-label" for="topm">Magazines</label>
+				<input type="checkbox" checked class="column-input" id="topr" name="topics[]" value="r" >
+				<label class="column-label" for="topr">Fiction RUS</label>
+				<input type="checkbox" checked class="column-input" id="tops" name="topics[]" value="s" >
+				<label class="column-label" for="tops">Standards</label>
+			</div>
+ 		</div>
+		<div class="col-4">
+
+			<div >
+				<strong>Results per page:</strong>
+
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="res25" name="res" class="custom-control-input" value="25" checked>
+				<label class="custom-control-label" for="res25">25</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="res50" name="res" class="custom-control-input" value="50" >
+				<label class="custom-control-label" for="res50">50</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="res100" name="res" class="custom-control-input" value="100" >
+				<label class="custom-control-label" for="res100">100</label>
+
+				</div>
+ 			</div>
+			<div class="d-block">
+				<table><tr><td>
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="covers" name="covers" >
+						<label class="custom-control-label" for="covers"><strong>Show Covers</strong></label>
+						<script type="text/javascript">
+						$("input[id=covers]").change(function(){
+							if($(this).is(":checked")==false)
+							{
+								document.cookie = "covers=; expires=Thu 01-Jan-70 00:00:01 GMT;";
+							}
+						});				
+						</script>
+					</div>
+					</td><td> 
+					<div class="custom-control custom-switch">
+						<input type="checkbox" class="custom-control-input" id="showch" name="showch" >
+						<label class="custom-control-label" for="showch"><strong>Show chapters</strong></label>
+						<script type="text/javascript">
+						$("input[id=showch]").change(function(){
+							if($(this).is(":checked")==false)
+							{
+								document.cookie = "showch=; expires=Thu 01-Jan-70 00:00:01 GMT;";
+							}
+						});				
+						</script>
+					</div>
+				</td></tr></table>
+
+ 			</div>
+
+			<div class="d-block">
+
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="gmode" name="gmode" >
+					<label class="custom-control-label" for="gmode" ><strong>Google mode <a href="#" data-toggle="modal" data-target="#googlemodemodal">?</a></strong></label>
+					<script type="text/javascript">
+					$("input[id=gmode]").change(function(){
+						if($(this).is(":checked")==false)
+						{
+							document.cookie = "gmode=; expires=Thu 01-Jan-70 00:00:01 GMT;";
+						}
+					});
+					</script>
+					
+				</div>
+ 			</div>
+
+			<div >
+
+
+				<strong>Seach in files:</strong>
+
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="all" name="filesuns" class="custom-control-input" value="all" checked>
+				<label class="custom-control-label" for="all">All</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="sort" name="filesuns" class="custom-control-input" value="sort" >
+				<label class="custom-control-label" for="sort">Only sorted</label>
+				</div>
+				<div class="custom-control custom-radio custom-control-inline">
+				<input type="radio" id="unsort" name="filesuns" class="custom-control-input" value="unsort" >
+				<label class="custom-control-label" for="unsort">Only uns.</label>
+				</div>
+
+
+
+ 			</div>
+
+ 		</div>
+	</div>
+</div>
+</form><ul class="nav nav-tabs "><li class="nav-item">
+ <a class="nav-link active " href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f">Files <span class="badge badge-primary">78</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=python&topics=l&res=25&view=simple&curtab=e">Editions <span class="badge badge-primary">31</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=python&topics=l&res=25&view=simple&curtab=s">Series <span class="badge badge-primary">2</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=python&topics=l&res=25&view=simple&curtab=a">Authors <span class="badge badge-primary">8</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=python&topics=l&res=25&view=simple&curtab=p">Publishers <span class="badge badge-primary">1</span></a>
+</li><li class="nav-item">
+ <a class="nav-link  " href="/index.php?req=python&topics=l&res=25&view=simple&curtab=w">Works <span class="badge badge-primary">72</span></a>
+</li><li class="navbar-right" style="float: right !important;"><a class="nav-link" href="/json.php?object=f&ids=13669,253733,1783004,1885188,2058576,2112667,2119379,2141332,104086918,104086919,104086920,104086921,104086922,104086923,104086924,104086925,104086926,104086927,104086928,104086929,104086930,104086931,104086932,104086933,104086934,104086935,104086936,104086937,104086938,104086939,104086940,104086941,104086942,104086943,104086944,104086945,104086946,104086947,104086948,104086949,104086950,104086951,104086952,91082993,91082994,162928,890418,975466,1836795,1836796,2069865,2080532,2086580,2103919,2117601,2135219,2144696,91069891,91116263,96490895,96654078,96744482,96749750,97527126,97586001,97944442,99215800,99215801,99215802,99215817,99216094,99216102,99216115,99216144,99333298,103894450,105461725,108205888"><font color="black">JSON</font></a></li> </ul><div style="text-align: center;" class="paginator" id="paginator_example_top"></div><script type="text/javascript">paginator_example_top = new Paginator("paginator_example_top", 4, 25, 1, "/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=&ordermode=desc&filesuns=all&page=" );</script><table class="table  table-striped" id="tablelibgen"><thead><tr>
+
+<th scope="col" class="first_col"><nobr>
+ID <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=f_id&ordermode=asc">&#8597</a> 
+Time add. <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=time_added&ordermode=asc">&#8597</a> 
+Title <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=title&ordermode=asc">&#8597</a> 
+Series <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=series&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Author(s) <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=author&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Publisher <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=publisher&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Year <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=year&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col">Language</th>
+<th scope="col">Pages</th>
+<th scope="col"><nobr>Size  <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=filesize&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col"><nobr>Ext. <a href="/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=extension&ordermode=asc">&#8597</a></nobr></th>
+<th scope="col">Mirrors</th>
+</tr></thead><tbody><tr>
+
+<td><b><a href="series.php?id=374041">Phantom (The) Sundays  </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-13/2022-08-21; ID: 13669<br>The Phantom Sunday 161-The Iron Python 10-03-2004 to 03-27-2005" href="edition.php?id=142524795"><i> #161 2004-oct 3 - 2005-mar 27</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-13/2022-08-21; ID: 13669<br>The Phantom Sunday 161-The Iron Python 10-03-2004 to 03-27-2005" href="edition.php?id=142524795">The Iron Python <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 1120824</span></nobr>
+<font size=1 color="gray"><br>The Phantom Sunday 161-The Iron Python 10-03-2004 to 03-27-2005 <br><b>650x438px 72dpi</b></font>
+</td>
+<td></td>
+<td><a href="publisher.php?id=41890">Indrajal Comics</a></td>
+<td><nobr>2004 October 3―2005 March 27</nobr></td>
+<td>English</td>
+<td>25</td>
+<td><nobr><a href="/file.php?id=13669">3 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=44a7f3a19a9cd60fc54a1d9322f38120"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/44a7f3a19a9cd60fc54a1d9322f38120?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=381494">City Hunter: Nicky Larson   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-29/2022-08-21; ID: 253733<br>City hunter - Nicky Larson - #22 - Un python 357 pour la demoiselle" href="edition.php?id=142553840"><i> #22</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-29/2022-08-21; ID: 253733<br>City hunter - Nicky Larson - #22 - Un python 357 pour la demoiselle" href="edition.php?id=142553840">Un Python 357 Pour La Demoiselle <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 1198136</span></nobr>
+<font size=1 color="gray"><br>City hunter - Nicky Larson - #22 - Un python 357 pour la demoiselle <br><b>1657x1404px 150dpi</b></font>
+</td>
+<td></td>
+<td></td>
+<td><nobr></nobr></td>
+<td>French</td>
+<td>101</td>
+<td><nobr><a href="/file.php?id=253733">22 MB</a></nobr></td>
+<td>cbz</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=c1318f812806e113970d497bc9f8c58e"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/c1318f812806e113970d497bc9f8c58e?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=129628">Comics: Monty Python OS  </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-14/2021-06-18; ID: 1783004<br>Comics Monty Python(2014)(Digital)(TLK-EMPIRE-HD)" href="edition.php?id=175941"><i> #1 2014-apr</i></a></b> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 569356</span></nobr>
+<font size=1 color="gray"><br>Comics Monty Python(2014)(Digital)(TLK-EMPIRE-HD) <br><b>1920x2916px 72dpi</b></font>
+</td>
+<td>Chris Canibano (writer), Darren G. Davis (other), Gary Scott Beatty (letterer), Jarred Weisfeld (other),<input type="checkbox" id="1783004" class="taghide"/><label for="1783004" ><b>[...]</b></label><div id="1783004"> Jason Schultz (other), Juan Luis Rincón (colorist, cover, penciler), Kailey Marsh (other), Maggie Jessup (other)</div></td>
+<td><a href="publisher.php?id=43500">TidalWave Productions</a></td>
+<td><nobr>2014 April</nobr></td>
+<td>English</td>
+<td>25</td>
+<td><nobr><a href="/file.php?id=1783004">21 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=eca4c0077ea1811145565f6190b82c28"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/eca4c0077ea1811145565f6190b82c28?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=143612">The Phantom   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-15/2021-06-18; ID: 1885188<br>Frew 1602 - Phantom - The Python Strikes Back" href="edition.php?id=230520"><i> #1602</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2015-07-15/2021-06-18; ID: 1885188<br>Frew 1602 - Phantom - The Python Strikes Back" href="edition.php?id=230520">The Python Strikes Back <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 671540</span></nobr>
+<font size=1 color="gray"><br>Frew 1602 - Phantom - The Python Strikes Back <br><b>2014x2582px 100dpi</b></font>
+</td>
+<td>Lee Falk (other)</td>
+<td><a href="publisher.php?id=41487">Frew Publications</a></td>
+<td><nobr>2011</nobr></td>
+<td>English</td>
+<td>140</td>
+<td><nobr><a href="/file.php?id=1885188">249 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=4b9c7f01e85073b66761e70e7c10095f"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/4b9c7f01e85073b66761e70e7c10095f?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=153982">Le Petit Prince/Les Nouvelles Aventures   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-01-30/2021-06-18; ID: 2058576<br>[BD Fr] BD FR - Le Petit Prince - 24 - La planète du serpent - (Bruneau-Bussi-Python) - [2480]" href="edition.php?id=296153"><i> #24 2015-feb</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-01-30/2021-06-18; ID: 2058576<br>[BD Fr] BD FR - Le Petit Prince - 24 - La planète du serpent - (Bruneau-Bussi-Python) - [2480]" href="edition.php?id=296153">La planète du Serpent <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2017-01-30/2021-06-18; ID: 2058576<br>[BD Fr] BD FR - Le Petit Prince - 24 - La planète du serpent - (Bruneau-Bussi-Python) - [2480]" href="edition.php?id=296153"><i><font color="green"> 9782344006214</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 844928</span></nobr>
+<font size=1 color="gray"><br>[BD Fr] BD FR - Le Petit Prince - 24 - La planète du serpent - (Bruneau-Bussi-Python) - [2480] <br><b>2480x3425px 300dpi</b></font>
+</td>
+<td>Bruneau, Clotilde (sc.);Python, Isa Bussi, Audrey (des.);Moonsun (col.);</td>
+<td><a href="publisher.php?id=41580">Éditions Glénat</a></td>
+<td><nobr>2015 Février</nobr></td>
+<td>French</td>
+<td>53</td>
+<td><nobr><a href="/file.php?id=2058576">77 MB</a></nobr></td>
+<td>cbz</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=be55b165e8cffff48e037d7e50a27c83"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/be55b165e8cffff48e037d7e50a27c83?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=163093">Mémoires de Marie-Antoinette   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2019-09-07/2021-06-18; ID: 2112667<br>BD FR - Mémoires de Marie-Antoinette - 01 - Versailles - (Simsolo Python) - (1920)" href="edition.php?id=315848"><i> #1 2017-may</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2019-09-07/2021-06-18; ID: 2112667<br>BD FR - Mémoires de Marie-Antoinette - 01 - Versailles - (Simsolo Python) - (1920)" href="edition.php?id=315848">Versailles <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2019-09-07/2021-06-18; ID: 2112667<br>BD FR - Mémoires de Marie-Antoinette - 01 - Versailles - (Simsolo Python) - (1920)" href="edition.php?id=315848"><i><font color="green"> 9782344008492</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 899019</span></nobr>
+<font size=1 color="gray"><br>BD FR - Mémoires de Marie-Antoinette - 01 - Versailles - (Simsolo Python) - (1920) <br><b>1920x2567px 300dpi</b></font>
+</td>
+<td>Simsolo, Noël (sc.);Python, Isa (des.);Smulkowski, Scarlett (col.);</td>
+<td><a href="publisher.php?id=41580">Éditions Glénat</a></td>
+<td><nobr>2017 Mai</nobr></td>
+<td>French</td>
+<td>133</td>
+<td><nobr><a href="/file.php?id=2112667">104 MB</a></nobr></td>
+<td>cbz</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=3eee010a58896d6c499b7cb723b2eec2"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/3eee010a58896d6c499b7cb723b2eec2?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=163093">Mémoires de Marie-Antoinette   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2019-09-07/2022-01-20; ID: 2119379<br>12.2018.-.BD.FR.-.Mémoires.de.Marie-Antoinette.-.02.-.Révolution.-.(Simsolo-Python).-.[Digital-1729]" href="edition.php?id=315849"><i> #2 2018-may</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2019-09-07/2022-01-20; ID: 2119379<br>12.2018.-.BD.FR.-.Mémoires.de.Marie-Antoinette.-.02.-.Révolution.-.(Simsolo-Python).-.[Digital-1729]" href="edition.php?id=315849">Révolution <i></i></a><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2019-09-07/2022-01-20; ID: 2119379<br>12.2018.-.BD.FR.-.Mémoires.de.Marie-Antoinette.-.02.-.Révolution.-.(Simsolo-Python).-.[Digital-1729]" href="edition.php?id=315849"><i><font color="green"> 9782344013359</font></a></i> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 905731</span></nobr>
+<font size=1 color="gray"><br>12.2018.-.BD.FR.-.Mémoires.de.Marie-Antoinette.-.02.-.Révolution.-.(Simsolo-Python).-.[Digital-1729] <br><b>1729x2312px 1200dpi</b></font>
+</td>
+<td>Simsolo, Noël (sc.);Python, Isa (des.);Smulkowski, Scarlett (col.);</td>
+<td><a href="publisher.php?id=41580">Éditions Glénat</a></td>
+<td><nobr>2018 Mai</nobr></td>
+<td>French</td>
+<td>142</td>
+<td><nobr><a href="/file.php?id=2119379">179 MB</a></nobr></td>
+<td>cbz</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=92db1755defd5eb1429758475401e8c6"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/92db1755defd5eb1429758475401e8c6?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+
+<td><b><a href="series.php?id=164907">Python 345   </a><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2016-03-27/2021-06-18; ID: 2141332<br>Python 345  N°02 - Duchnok S'éclate" href="edition.php?id=317826"><i> #2 1981-mar</i></a></b><br><a data-toggle="tooltip" data-placement="right" data-html="true" title="Add/Edit : 2016-03-27/2021-06-18; ID: 2141332<br>Python 345  N°02 - Duchnok S'éclate" href="edition.php?id=317826">Duchnok s'éclate <i></i></a> 
+<nobr><span class="badge badge-primary"><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="Comics issue">c</a></span> 
+<span class="badge badge-secondary"">c 927684</span></nobr>
+<font size=1 color="gray"><br>Python 345  N°02 - Duchnok S'éclate <br><b> </b></font>
+</td>
+<td></td>
+<td><a href="publisher.php?id=41599">Goldstar</a></td>
+<td><nobr>1981 Mars</nobr></td>
+<td>French</td>
+<td>0</td>
+<td><nobr><a href="/file.php?id=2141332">10 MB</a></nobr></td>
+<td>pdf</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=9ecee468c79f5f5a77ef013f50b77906"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/9ecee468c79f5f5a77ef013f50b77906?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:00/2024-01-22 18:51:00<br>File ID: 104086918" >Python 01 - Python<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>18</td>
+<td><nobr><a href="/file.php?id=104086918">21 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=4c944c65e9736e980bc938a9a54325d8"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/4c944c65e9736e980bc938a9a54325d8?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:03/2024-01-22 18:51:03<br>File ID: 104086919" >Python 02 - Cloacas<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>15</td>
+<td><nobr><a href="/file.php?id=104086919">31 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=93fc544fea8b52e7e75a851bacac18af"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/93fc544fea8b52e7e75a851bacac18af?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:06/2024-01-22 18:51:06<br>File ID: 104086920" >Python 03 - Información<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>16</td>
+<td><nobr><a href="/file.php?id=104086920">33 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=d9087a950a710db1ed1b38d64ee8f612"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/d9087a950a710db1ed1b38d64ee8f612?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:09/2024-01-22 18:51:09<br>File ID: 104086921" >Python 04 - Tranways<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>20</td>
+<td><nobr><a href="/file.php?id=104086921">42 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=32f0db0fa3dc2d4505aca414e181e8b4"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/32f0db0fa3dc2d4505aca414e181e8b4?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:12/2024-01-22 18:51:12<br>File ID: 104086922" >Python 05 - Muerte<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>16</td>
+<td><nobr><a href="/file.php?id=104086922">34 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=e4483a6958577d74d23c453ec92c05f6"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/e4483a6958577d74d23c453ec92c05f6?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:15/2024-01-22 18:51:15<br>File ID: 104086923" >Python 06 - Mutágenos<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>22</td>
+<td><nobr><a href="/file.php?id=104086923">46 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=d72203fb791b8488f86aee9b7ec6c083"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/d72203fb791b8488f86aee9b7ec6c083?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:18/2024-01-22 18:51:18<br>File ID: 104086924" >Python 07 - Nieve<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>15</td>
+<td><nobr><a href="/file.php?id=104086924">11 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=dbf7997f0e7983eb3b399fbefc03e7b4"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/dbf7997f0e7983eb3b399fbefc03e7b4?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:20/2024-01-22 18:51:20<br>File ID: 104086925" >Python 08 - Nancy<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>15</td>
+<td><nobr><a href="/file.php?id=104086925">10 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=292843017fddbb799a38a7b15c5a287e"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/292843017fddbb799a38a7b15c5a287e?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:22/2024-01-22 18:51:22<br>File ID: 104086926" >Python 09 - Autobús<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>16</td>
+<td><nobr><a href="/file.php?id=104086926">36 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=2952cff75ac41cd48f596d0e450e17da"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/2952cff75ac41cd48f596d0e450e17da?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:25/2024-01-22 18:51:25<br>File ID: 104086927" >Python 10 - Pretty Mutant<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>16</td>
+<td><nobr><a href="/file.php?id=104086927">11 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=69b85138399df3addb0324c0bb98939e"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/69b85138399df3addb0324c0bb98939e?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:27/2024-01-22 18:51:27<br>File ID: 104086928" >Python 11 - Football<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>17</td>
+<td><nobr><a href="/file.php?id=104086928">36 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=70d50135c1cfa594f7c1d043037f628a"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/70d50135c1cfa594f7c1d043037f628a?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:30/2024-01-22 18:51:30<br>File ID: 104086929" >Python 12 - Gorgojos<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>15</td>
+<td><nobr><a href="/file.php?id=104086929">32 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=6fa4cc66d44fb84be3640215b6176ca1"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/6fa4cc66d44fb84be3640215b6176ca1?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:33/2024-01-22 18:51:33<br>File ID: 104086930" >Python 13 - Gorgojos II<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>15</td>
+<td><nobr><a href="/file.php?id=104086930">33 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=d43ccbda0930ea6a1bc9c7ee3e314fb9"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/d43ccbda0930ea6a1bc9c7ee3e314fb9?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:36/2024-01-22 18:51:36<br>File ID: 104086931" >Python 14 - Legionarios A La Fuerza<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>17</td>
+<td><nobr><a href="/file.php?id=104086931">36 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=70af5675e4396bfde34cd05d7d78ec84"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/70af5675e4396bfde34cd05d7d78ec84?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:39/2024-01-22 18:51:39<br>File ID: 104086932" >Python 15 - Temporada De Caza<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>22</td>
+<td><nobr><a href="/file.php?id=104086932">34 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=c9f44951e062bb30f3d89f8bcee0f6ac"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/c9f44951e062bb30f3d89f8bcee0f6ac?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:41/2024-01-22 18:51:41<br>File ID: 104086933" >Python 16 - El Paso<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>17</td>
+<td><nobr><a href="/file.php?id=104086933">34 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=ac80e8c61b585c5915f4429ad7986fca"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/ac80e8c61b585c5915f4429ad7986fca?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr><tr>
+<td colspan=5>
+  <div class="row">
+      
+    <div class="col">
+<span data-toggle="tooltip" data-placement="right" data-html="true" title="Time added/Time modified : 2024-01-22 18:51:44/2024-01-22 18:51:44<br>File ID: 104086934" >Python 17 - Candombe<br><font size=1 color="gray">emule\2023.06.27\Python - Python's Bromas Saladas (1992-95)</font></span>
+
+
+    </div>
+</div>
+</td>
+<td>16</td>
+<td><nobr><a href="/file.php?id=104086934">31 MB</a></nobr></td>
+<td>cbr</td>
+<td><a data-toggle="tooltip" data-placement="bottom" data-html="true" title="libgen" href="/get.php?md5=d391cd2b817a43b9f74be41b2307aa27"><span class="badge badge-primary">Libgen</span></a> <a data-toggle="tooltip" data-placement="bottom" data-html="true" title="anna's archive" href="https://en.annas-archive.gl/md5/d391cd2b817a43b9f74be41b2307aa27?r=Ax2w6jC"><span class="badge badge-primary">Anna's arch</span></a> </td>
+</tr></tbody></table><table>
+  <tr>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://inopportunefable.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://inopportunefable.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+  </tr> 
+  <tr>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://inopportunefable.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://inopportunefable.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+  </tr> 
+  <tr>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://inopportunefable.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+    <td><script type="text/javascript">
+	atOptions = {
+		'key' : '80ff16b446cdd16fda9f69edcec465d4',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://inopportunefable.com/80ff16b446cdd16fda9f69edcec465d4/invoke.js"></scr' + 'ipt>');
+</script></td>
+  </tr> 
+</table><div style="text-align: center;" class="paginator" id="paginator_example_bottom"></div><script type="text/javascript">paginator_example_bottom = new Paginator("paginator_example_bottom", 4, 25, 1, "/index.php?req=python&topics=l&res=25&view=simple&curtab=f&order=&ordermode=desc&filesuns=all&page=" );</script><div class="modal fade text-dark" id="googlemodemodal" tabindex="-1" aria-labelledby="googlemodemodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="googlemodemodalLabel">Google mode</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+By default, the search searches for a set of marked fields containing all the words specified in the query in no particular order<br>
+Advanced search mode (Google mode), allows you to set more precise search terms:<br>
+- Quotes: "" - search exactly for the phrase as it is written in the database<br>
+- Mask: * (min 3 chars)- search by part of a word<br>
+- Excluding words: - (minus) - does not display records containing this word, also, these conditions can be combined.<br>
+Example:<br>
+"Physics and Chemistry" Basi * -technology<br>
+means the title of the book contains the exact phrase "Physics and Chemistry", contains the word starting with Basi and does not contain the word technology.<br>
+You can also search for a specific field or view mode that is not displayed for selection in the interface, syntax: field_name:value<br>
+List of add. fields:<br>
+For the Files tab:<br>
+<i>md5</i><br>
+<i>tth</i><br>
+<i>sha1</i><br>
+<i>sha256</i><br>
+<i>crc32</i><br>
+<i>edonkey</i><br>
+<i>doi</i><br>
+
+View modes:<br>
+<i>mode:last</i> - last added entries (for a given object - series, authors, editions, etc.)<br>
+<br>
+<i>fmode:last</i> - last added files (for the given repository)<br>
+<br>
+Add. fields for object "editions" and "files":<br>
+<i>issuevolume</i> - periodical volume<br>
+<i>issuesid</i> - serial ID of the periodical<br>
+<i>issuenumber</i> - the number (within the volume) of the periodical<br>
+<i>issuetnumber</i> is the gross number of the periodical<br>
+<i>issueynumber</i> - intra-annual issue of the periodical<br>
+<i>year</i> - year<br>
+<i>publisherid</i> - Publisher ID<br>
+<i>authorid</i> - Author's ID<br>
+<i>lang</i> - three-letter language code (ISO 639)<br>
+<i>fsize</i> - filesize (MBytes), for example: fsize&gt;10, fsize&lt;20, fsize=15<br>
+<i>ext</i> - File extenstion <br>
+<i>booktopicid</i> - ID of the classifier for books<br>
+<i>tags</i> - Теги (издание, работы, серия)<br>
+<br>
+Add. fields for object "series"<br>
+<i>comtopicid</i> - ID of the classifier for comics<br>
+<i>smtopicid</i> - ID of the classifier for scientific journals<br>
+<i>magtopicid</i> - ID of the classifier for magazines<br>
+<i>issn</i> - ISSN
+
+      </div>
+    </div>
+  </div>
+</div><nav class="navbar sticky-bottom navbar-expand-sm navbar-dark bg-secondary">
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+	    <a class="nav-link" href="#" data-toggle="modal" data-target="#dmcamodal">DMCA</a>
+      </li>
+      <li class="nav-item">
+	    <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutmodal">ABOUT</a>
+      </li>
+      <li class="nav-item">
+	    <a class="nav-link" href="#" data-toggle="modal" data-target="#donatemodal" >DONATE</a>
+      </li>
+	
+    </ul>
+	<span class="navbar-text">Users online 6324</span>
+  </div>
+</nav>
+
+<!-- Modal Donate -->
+<div class="modal fade text-dark" id="donatemodal" tabindex="-1" aria-labelledby="donatemodalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="donatemodalLabel">Donate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <a href="bitcoin://bc1qlv9lwa5vncm2jjrxyhddfcvu0z3u5vn0s9672r">Bitcoin</a>
+	<br>
+        <a href="monero:48WhyKv4D9x53SyDFNYuMsHsDzuHXEcht4mWoFtXtE3k4KZ3A7goi3CQWBQQZ3A8PSK7CpwnAFKLnfGiZTAbEpcaCQCghvN">Monero</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal About -->
+<div class="modal fade text-dark" id="aboutmodal" tabindex="-1" aria-labelledby="aboutmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aboutmodalLabel">About</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+<div id="about">
+The Library Genesis aggregator is a community aiming at collecting and cataloging items descriptions for the most part of scientific, 
+scientific and technical directions, as well as file metadata. In addition to the descriptions, 
+the aggregator contains only links to third-party resources hosted by users. 
+All information posted on the website is collected from publicly available public Internet resources and is intended solely for informational purposes.  
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal DMCA -->
+<div class="modal fade text-dark" id="dmcamodal" tabindex="-1" aria-labelledby="dmcamodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dmcamodalLabel">About</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<div id="dmca">
+Library Genesis - aggregator items is a website that collects and organizes online items from users. 
+Item aggregation is done for fact-finding purposes, and website Library Genesis respects the rights of copyright holders and respect dcma.
+
+     Removing Content From Library Genesis / DMCA Policy
+     Library Genesis respects the intellectual property of others.
+</div>
+
+    <div class="dmca">
+     If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement and is accessible on this site, you may notify our copyright agent, as set forth in the Digital Millennium Copyright Act of 1998 (DMCA). For your complaint to be valid under the DMCA, you must provide the following information when providing notice of the claimed copyright infringement:
+</div>
+    <div class="dmca">
+     * A physical or electronic signature of a person authorized to act on behalf of the copyright owner Identification of the copyrighted work claimed to have been infringed <br />
+     * Identification of the material that is claimed to be infringing or to be the subject of the infringing activity and that is to be removed <br />
+     * Information reasonably sufficient to permit the service provider to contact the complaining party, such as an address, telephone number, and, if available, an electronic mail address <br />
+     * A statement that the complaining party "in good faith believes that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or law" <br />
+     * A statement that the "information in the notification is accurate", and "under penalty of perjury, the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed" <br />
+     The above information must be submitted as a written, faxed or emailed notification to the following Designated Agent: ianzlib@protonmail.com. Appeals will be reviewed within 72 hours.</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.5/dist/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+	<script src="/js/form-validation.js"></script>
+	<script>
+$('[data-toggle="tooltip"]').tooltip();
+$('.btn-tooltip-bottom').tooltip({
+    placement: 'bottom'
+});
+</script>
+
+</body>
+</html>
