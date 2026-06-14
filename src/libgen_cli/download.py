@@ -113,13 +113,7 @@ def resolve_download_url(
     keyed = _fetch_keyed_url(client, mirror, md5)
     if not keyed:
         return None
-    try:
-        keyed_resp = client.head(keyed, follow_redirects=True)
-    except httpx.HTTPError:
-        return None
-    if keyed_resp.status_code >= 400 or _is_html(keyed_resp.headers.get("content-type")):
-        return None
-    return ResolvedURL(url=str(keyed_resp.url), mirror=mirror, via_key=True)
+    return ResolvedURL(url=keyed, mirror=mirror, via_key=True)
 
 
 def _stream_to_part(
