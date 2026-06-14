@@ -335,9 +335,14 @@ def download_book(
     if aa_mirrors and not dry_run:
         from libgen_cli.annas_archive import resolve_aa_download_url
 
+        aa_label = "annas-archive"
+        if progress is not None:
+            progress(ProgressEvent("retry", md5, mirror=aa_label, message="trying AA fallback"))
         aa_url = resolve_aa_download_url(client, aa_mirrors, md5)
+        if not aa_url:
+            if progress is not None:
+                progress(ProgressEvent("fail", md5, mirror=aa_label, message="no working download slot found"))
         if aa_url:
-            aa_label = "annas-archive"
             if progress is not None:
                 progress(ProgressEvent("retry", md5, mirror=aa_label, message="resolving via AA"))
             try:

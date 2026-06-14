@@ -182,6 +182,29 @@ def search_aa(
     return []
 
 
+def _parse_aa_slow_download_links(html: str, base: str, md5: str) -> list[str]:
+    """Extract /slow_download/ hrefs from an AA book detail page."""
+    if not html:
+        return []
+    tree = HTMLParser(html)
+    links: list[str] = []
+    seen: set[str] = set()
+    for a in tree.css("a[href]"):
+        href = a.attributes.get("href") or ""
+        if f"/slow_download/{md5}" not in href.lower():
+            continue
+        if href.startswith("/"):
+            url = f"{base}{href}"
+        elif href.startswith("http"):
+            url = href
+        else:
+            continue
+        if url not in seen:
+            seen.add(url)
+            links.append(url)
+    return links
+
+
 def resolve_aa_download_url(
     client: httpx.Client,
     mirrors: Sequence[str],
@@ -190,34 +213,42 @@ def resolve_aa_download_url(
     """Try the free slow-partner-server download endpoints on AA mirrors.
 
     Returns a direct (binary-serving) URL if one of the slots responds
-    correctly, otherwise None.  The caller should follow redirects when
-    streaming the returned URL.
+    correctly, otherwise None.
 
-    Visits the book detail page first to warm the DDoS-Guard session so
-    that the slow_download endpoints receive valid session cookies.
+    GETs the book detail page first: warms the DDoS-Guard session AND
+    extracts the actual slow_download links the page advertises (falling back
+    to constructed URLs if the page is inaccessible).  Uses a range GET
+    (bytes=0-0) instead of HEAD because some partner servers reject HEAD.
     """
     from libgen_cli.download import _is_html  # local import to avoid circularity
 
     for mirror in mirrors:
         base = mirror.rstrip("/")
-
-        # Warm the DDoS-Guard session; ignore errors — best-effort.
         book_page_url = f"{base}/md5/{md5}"
+
+        page_html = ""
         try:
-            client.get(book_page_url)
+            page_resp = client.get(book_page_url)
+            if page_resp.status_code < 400:
+                page_html = page_resp.text
         except httpx.HTTPError:
             pass
 
-        for idx in range(_AA_SLOW_SERVER_COUNT):
-            url = f"{base}/slow_download/{md5}/0/{idx}"
+        links = _parse_aa_slow_download_links(page_html, base, md5)
+        if not links:
+            links = [f"{base}/slow_download/{md5}/0/{idx}" for idx in range(_AA_SLOW_SERVER_COUNT)]
+
+        for url in links:
             try:
-                resp = client.head(
+                resp = client.get(
                     url,
                     follow_redirects=True,
-                    headers={"Referer": book_page_url},
+                    headers={"Referer": book_page_url, "Range": "bytes=0-0"},
                 )
             except httpx.HTTPError:
                 continue
-            if resp.status_code < 400 and not _is_html(resp.headers.get("content-type")):
+            # 206 = partial content (range accepted), 200 = full response, 416 = range not supported
+            # but file server is alive; all three mean the URL is live and non-HTML
+            if resp.status_code in (200, 206, 416) and not _is_html(resp.headers.get("content-type")):
                 return str(resp.url)
     return None
