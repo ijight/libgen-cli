@@ -236,7 +236,6 @@ def download_book(
     book: Book,
     mirrors: Sequence[str],
     *,
-    aa_mirrors: Sequence[str] = (),
     out_dir: Path,
     dry_run: bool = False,
     overwrite: bool = False,
@@ -247,12 +246,9 @@ def download_book(
     Returns a :class:`DownloadResult` summarising the outcome. Never raises;
     failures surface via ``result.success == False`` so bulk callers can
     aggregate.
-
-    When ``aa_mirrors`` is supplied, Anna's Archive slow-partner servers are
-    tried as a last resort after all libgen mirrors have been exhausted.
     """
     md5 = book.md5.lower()
-    if not mirrors and not aa_mirrors:
+    if not mirrors:
         return DownloadResult(md5=md5, path=None, success=False, error="no mirrors available")
 
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -331,60 +327,6 @@ def download_book(
             extra={"via_key": resolved.via_key},
         )
 
-    # --- Anna's Archive fallback ---
-    if aa_mirrors and not dry_run:
-        from libgen_cli.annas_archive import resolve_aa_download_url
-
-        aa_label = "annas-archive"
-        if progress is not None:
-            progress(ProgressEvent("retry", md5, mirror=aa_label, message="trying AA fallback"))
-        aa_url = resolve_aa_download_url(client, aa_mirrors, md5)
-        if not aa_url:
-            if progress is not None:
-                progress(ProgressEvent("fail", md5, mirror=aa_label, message="no working download slot found"))
-        if aa_url:
-            if progress is not None:
-                progress(ProgressEvent("retry", md5, mirror=aa_label, message="resolving via AA"))
-            try:
-                bytes_written = _stream_to_part(
-                    client,
-                    aa_url,
-                    part_path,
-                    expected_md5=md5,
-                    md5=md5,
-                    progress=progress,
-                    mirror=aa_label,
-                )
-            except MD5MismatchError as exc:
-                last_error = str(exc)
-                part_path.unlink(missing_ok=True)
-                if progress is not None:
-                    progress(ProgressEvent("fail", md5, mirror=aa_label, message=str(exc)))
-            except (DownloadError, httpx.HTTPError, OSError) as exc:
-                last_error = str(exc) or exc.__class__.__name__
-                if progress is not None:
-                    progress(ProgressEvent("fail", md5, mirror=aa_label, message=last_error))
-            else:
-                os.replace(part_path, final_path)
-                if progress is not None:
-                    progress(
-                        ProgressEvent(
-                            "finish",
-                            md5,
-                            bytes_so_far=bytes_written,
-                            mirror=aa_label,
-                            message=str(final_path),
-                        )
-                    )
-                return DownloadResult(
-                    md5=md5,
-                    path=str(final_path),
-                    success=True,
-                    mirror_used=aa_label,
-                    bytes_written=bytes_written,
-                    extra={"via_aa": True},
-                )
-
     return DownloadResult(
         md5=md5,
         path=None,
@@ -398,7 +340,6 @@ def download_many(
     books: Iterable[Book],
     mirrors: Sequence[str],
     *,
-    aa_mirrors: Sequence[str] = (),
     out_dir: Path,
     concurrency: int = 4,
     dry_run: bool = False,
@@ -413,7 +354,7 @@ def download_many(
     book_list = list(books)
     if not book_list:
         return []
-    if not mirrors and not aa_mirrors:
+    if not mirrors:
         raise NoMirrorsAvailableError("no mirrors available")
 
     workers = max(1, min(concurrency, len(book_list)))
@@ -424,7 +365,6 @@ def download_many(
                 client,
                 b,
                 mirrors,
-                aa_mirrors=aa_mirrors,
                 out_dir=out_dir,
                 dry_run=dry_run,
                 overwrite=overwrite,
@@ -440,7 +380,6 @@ def download_many(
                 client,
                 book,
                 mirrors,
-                aa_mirrors=aa_mirrors,
                 out_dir=out_dir,
                 dry_run=dry_run,
                 overwrite=overwrite,

@@ -28,6 +28,7 @@ DEFAULT_MIRRORS: tuple[str, ...] = (
     "https://libgen.gl",
     "https://libgen.vg",
     "https://libgen.bz",
+    "https://libgen.rs",
 )
 
 PROBE_PATH = "/"

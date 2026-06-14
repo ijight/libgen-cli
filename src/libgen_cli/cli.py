@@ -27,7 +27,6 @@ from rich.progress import (
 from rich.table import Table
 
 from libgen_cli import __version__
-from libgen_cli.annas_archive import DEFAULT_AA_MIRRORS, search_aa
 from libgen_cli.download import (
     ProgressEvent,
     ResolvedURL,
@@ -98,17 +97,12 @@ def _mirrors_or_die(
         raise typer.Exit(code=2) from exc
 
 
-def _emit_books_table(
-    books: Sequence[Book],
-    *,
-    mirror: str | None,
-    show_source: bool = False,
-) -> None:
+def _emit_books_table(books: Sequence[Book], *, mirror: str | None) -> None:
     if not books:
         console.print("[yellow]no results[/yellow]")
         return
     table = Table(
-        title=f"results ({len(books)})" + (f" — via {mirror}" if mirror else ""),
+        title=f"libgen results ({len(books)})" + (f" — via {mirror}" if mirror else ""),
         show_lines=False,
     )
     table.add_column("#", justify="right", style="dim", no_wrap=True)
@@ -118,12 +112,9 @@ def _emit_books_table(
     table.add_column("Lang")
     table.add_column("Ext")
     table.add_column("Size", justify="right")
-    if show_source:
-        table.add_column("Src", no_wrap=True)
     table.add_column("MD5", style="cyan", no_wrap=True)
     for idx, book in enumerate(books, start=1):
-        src_label = "aa" if book.source == "annas-archive" else "lbgn"
-        row = [
+        table.add_row(
             str(idx),
             book.title or "—",
             book.authors or "—",
@@ -131,11 +122,8 @@ def _emit_books_table(
             book.language or "—",
             book.extension or "—",
             book.size or "—",
-        ]
-        if show_source:
-            row.append(src_label)
-        row.append(book.md5)
-        table.add_row(*row)
+            book.md5,
+        )
     console.print(table)
 
 
@@ -145,62 +133,6 @@ def _emit_books_ndjson(books: Iterable[Book]) -> None:
         out.write(json.dumps(book.to_dict(), ensure_ascii=False))
         out.write("\n")
     out.flush()
-
-
-def _search_combined(
-    client: httpx.Client,
-    mirrors: list[str],
-    aa_mirrors: list[str],
-    query: str,
-    *,
-    topics: tuple[Topic, ...],
-    results_per_page: int,
-    page: int,
-    ext: list[str] | None = None,
-    lang: list[str] | None = None,
-) -> list[Book]:
-    """Run libgen and AA searches in parallel, merge and dedup by MD5.
-
-    Libgen results take precedence on MD5 collision.  AA results for MD5s
-    already in libgen are dropped; novel AA entries are appended at the end.
-    """
-    lg_books: list[Book] = []
-    aa_books: list[Book] = []
-    lg_exc: Exception | None = None
-
-    def _do_libgen() -> list[Book]:
-        return search(client, mirrors, query, topics=topics, results_per_page=results_per_page, page=page)
-
-    def _do_aa() -> list[Book]:
-        aa_ext = ext[0] if ext and len(ext) == 1 else None
-        aa_lang = lang[0] if lang and len(lang) == 1 else None
-        return search_aa(client, aa_mirrors, query, ext=aa_ext, lang=aa_lang)
-
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        fut_lg = pool.submit(_do_libgen) if mirrors else None
-        fut_aa = pool.submit(_do_aa) if aa_mirrors else None
-
-        if fut_lg is not None:
-            try:
-                lg_books = fut_lg.result()
-            except Exception as exc:
-                lg_exc = exc
-        if fut_aa is not None:
-            try:
-                aa_books = fut_aa.result()
-            except Exception:
-                aa_books = []
-
-    if lg_exc is not None and not aa_books:
-        raise lg_exc  # type: ignore[misc]
-
-    seen: set[str] = {b.md5 for b in lg_books}
-    merged = list(lg_books)
-    for book in aa_books:
-        if book.md5 not in seen:
-            seen.add(book.md5)
-            merged.append(book)
-    return merged
 
 
 def _read_md5s_from_path(path: Path) -> list[str]:
@@ -374,46 +306,33 @@ def cmd_search(
         bool,
         typer.Option("--allow-http", help="Allow plaintext (insecure) mirrors."),
     ] = False,
-    no_aa: Annotated[
-        bool,
-        typer.Option("--no-aa", help="Disable Anna's Archive results."),
-    ] = False,
 ) -> None:
-    """Search libgen and Anna's Archive across the configured mirrors."""
+    """Search libgen across the configured mirrors."""
     topics = _topic_choices(topic)
     book_filter = _build_filter(ext, lang, year)
     mirrors = _mirrors_or_die(mirror, allow_http=allow_http)
-    aa_mirrors = [] if no_aa else list(DEFAULT_AA_MIRRORS)
     use_ndjson = json_out or not sys.stdout.isatty()
 
     try:
         with make_client() as client:
-            books = _search_combined(
+            books = search(
                 client,
                 mirrors,
-                aa_mirrors,
                 query,
                 topics=topics,
                 results_per_page=n,
                 page=page,
-                ext=ext,
-                lang=lang,
             )
     except LibgenError as exc:
         err_console.print(f"[red]error:[/red] {exc}")
         raise typer.Exit(code=1) from exc
 
     books = book_filter.apply(books)
-    has_aa = any(b.source == "annas-archive" for b in books)
 
     if use_ndjson:
         _emit_books_ndjson(books)
     else:
-        _emit_books_table(
-            books,
-            mirror=mirrors[0] if mirrors else None,
-            show_source=has_aa,
-        )
+        _emit_books_table(books, mirror=mirrors[0] if mirrors else None)
 
 
 @app.command("download")
@@ -460,21 +379,16 @@ def cmd_download(
         bool,
         typer.Option("--allow-http", help="Allow plaintext (insecure) mirrors."),
     ] = False,
-    no_aa: Annotated[
-        bool,
-        typer.Option("--no-aa", help="Disable Anna's Archive fallback for downloads."),
-    ] = False,
 ) -> None:
     """Download one or more books by MD5."""
     mirrors = _mirrors_or_die(mirror, allow_http=allow_http)
-    aa_mirrors = [] if no_aa else list(DEFAULT_AA_MIRRORS)
     books = list(_collect_download_targets(md5s or [], bulk, from_stdin, mirrors, no_lookup))
     if not books:
         err_console.print("[yellow]no MD5s supplied[/yellow]")
         raise typer.Exit(code=2)
 
     out.mkdir(parents=True, exist_ok=True)
-    results = _run_downloads(books, mirrors, out, concurrency, dry_run, overwrite, aa_mirrors=aa_mirrors)
+    results = _run_downloads(books, mirrors, out, concurrency, dry_run, overwrite)
     _summarise_results(results, dry_run=dry_run)
 
 
@@ -551,28 +465,19 @@ def cmd_pick(
         bool,
         typer.Option("--allow-http", help="Allow plaintext (insecure) mirrors."),
     ] = False,
-    no_aa: Annotated[
-        bool,
-        typer.Option("--no-aa", help="Disable Anna's Archive results."),
-    ] = False,
 ) -> None:
-    """Search libgen and Anna's Archive, multi-select interactively, then download."""
+    """Search, multi-select interactively, then download."""
     topics = _topic_choices(topic)
     book_filter = _build_filter(ext, lang, year)
     mirrors = _mirrors_or_die(mirror, allow_http=allow_http)
-    aa_mirrors = [] if no_aa else list(DEFAULT_AA_MIRRORS)
     with make_client() as client:
         try:
-            books = _search_combined(
+            books = search(
                 client,
                 mirrors,
-                aa_mirrors,
                 query,
                 topics=topics,
                 results_per_page=n,
-                page=1,
-                ext=ext,
-                lang=lang,
             )
         except LibgenError as exc:
             err_console.print(f"[red]error:[/red] {exc}")
@@ -589,7 +494,7 @@ def cmd_pick(
         raise typer.Exit(code=0)
 
     out.mkdir(parents=True, exist_ok=True)
-    results = _run_downloads(chosen, mirrors, out, concurrency, dry_run, overwrite=False, aa_mirrors=aa_mirrors)
+    results = _run_downloads(chosen, mirrors, out, concurrency, dry_run, overwrite=False)
     _summarise_results(results, dry_run=dry_run)
 
 
@@ -876,8 +781,6 @@ def _run_downloads(
     concurrency: int,
     dry_run: bool,
     overwrite: bool,
-    *,
-    aa_mirrors: Sequence[str] = (),
 ) -> list[DownloadResult]:
     columns: tuple[ProgressColumn, ...]
     if dry_run:
@@ -908,7 +811,6 @@ def _run_downloads(
                     client,
                     books[0],
                     mirrors,
-                    aa_mirrors=aa_mirrors,
                     out_dir=out,
                     dry_run=dry_run,
                     overwrite=overwrite,
@@ -919,7 +821,6 @@ def _run_downloads(
             client,
             books,
             mirrors,
-            aa_mirrors=aa_mirrors,
             out_dir=out,
             concurrency=concurrency,
             dry_run=dry_run,
