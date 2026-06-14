@@ -30,6 +30,7 @@ from libgen_cli import __version__
 from libgen_cli.annas_archive import DEFAULT_AA_MIRRORS, search_aa
 from libgen_cli.download import (
     ProgressEvent,
+    ResolvedURL,
     download_book,
     download_many,
     resolve_download_url,
@@ -39,6 +40,7 @@ from libgen_cli.filters import BookFilter, FilterParseError
 from libgen_cli.http import make_client
 from libgen_cli.mirrors import (
     DEFAULT_MIRRORS,
+    probe_all,
     probe_and_rank,
     resolve_mirrors,
 )
@@ -646,6 +648,162 @@ def _emit_mirror_status_table(statuses: list[MirrorStatus]) -> None:
             s.error or "",
         )
     console.print(table)
+
+
+_STATUS_PROBE_QUERY = "alice adventures wonderland"
+
+
+@app.command("status")
+def cmd_status(
+    mirror: Annotated[
+        list[str] | None,
+        typer.Option("-m", "--mirror", help="Override mirrors; may be repeated."),
+    ] = None,
+    allow_http: Annotated[
+        bool,
+        typer.Option("--allow-http", help="Allow plaintext mirrors."),
+    ] = False,
+    no_aa: Annotated[
+        bool,
+        typer.Option("--no-aa", help="Skip Anna's Archive probe."),
+    ] = False,
+    timeout: Annotated[
+        float,
+        typer.Option("--timeout", help="Per-probe timeout in seconds."),
+    ] = 10.0,
+) -> None:
+    """Probe mirrors, test search, and verify whether downloads can actually be served.
+
+    Runs four checks per mirror: reachability, search result count, download URL
+    resolution, and a HEAD request against the CDN endpoint to confirm files are
+    being served (and surface CDN errors like 522).
+    """
+    mirrors = _mirrors_or_die(mirror, allow_http=allow_http)
+    aa_mirrors = [] if no_aa else list(DEFAULT_AA_MIRRORS)
+
+    with make_client(timeout=timeout) as client:
+        # 1. Reachability
+        console.print("[dim]probing mirror reachability…[/dim]")
+        statuses = probe_all(client, mirrors, timeout=timeout)
+        reachable: set[str] = {s.url for s in statuses if s.ok}
+        latency_map: dict[str, float] = {s.url: s.latency_ms for s in statuses}
+
+        # 2. Search probe — get a live MD5 for the download test
+        console.print("[dim]running search probe…[/dim]")
+        probe_md5: str | None = None
+        search_counts: dict[str, int] = {}
+        for m in mirrors:
+            if m not in reachable:
+                continue
+            try:
+                books = search(
+                    client,
+                    [m],
+                    _STATUS_PROBE_QUERY,
+                    topics=(Topic.NONFIC, Topic.FICTION),
+                    results_per_page=25,
+                )
+                search_counts[m] = len(books)
+                if books and probe_md5 is None:
+                    probe_md5 = books[0].md5
+            except Exception:
+                search_counts[m] = 0
+
+        # 3. Download resolution + CDN HEAD probe
+        console.print("[dim]testing download resolution…[/dim]")
+        resolve_results: dict[str, ResolvedURL | None] = {}
+        cdn_statuses: dict[str, int | None] = {}
+        if probe_md5:
+            def _probe_download(m: str) -> tuple[str, ResolvedURL | None, int | None]:
+                resolved = resolve_download_url(client, m, probe_md5)  # type: ignore[arg-type]
+                cdn_code: int | None = None
+                if resolved is not None:
+                    try:
+                        cdn_resp = client.head(resolved.url, follow_redirects=True, timeout=timeout)
+                        cdn_code = cdn_resp.status_code
+                    except httpx.HTTPError:
+                        cdn_code = None
+                return m, resolved, cdn_code
+
+            dl_targets = [m for m in mirrors if m in reachable]
+            with ThreadPoolExecutor(max_workers=len(dl_targets) or 1) as pool:
+                for m, resolved, cdn_code in pool.map(_probe_download, dl_targets):
+                    resolve_results[m] = resolved
+                    cdn_statuses[m] = cdn_code
+
+        # 4. AA probe
+        aa_search_count: int | None = None
+        if aa_mirrors:
+            console.print("[dim]probing Anna's Archive…[/dim]")
+            try:
+                aa_books = search_aa(client, aa_mirrors, _STATUS_PROBE_QUERY)
+                aa_search_count = len(aa_books)
+            except Exception:
+                aa_search_count = 0
+
+    # --- render ---
+    table = Table(title="libgen status", show_lines=False)
+    table.add_column("Mirror", overflow="fold")
+    table.add_column("Reach", justify="center", no_wrap=True)
+    table.add_column("Latency", justify="right", no_wrap=True)
+    table.add_column("Search", justify="right", no_wrap=True)
+    table.add_column("Resolve", justify="center", no_wrap=True)
+    table.add_column("CDN", justify="center", no_wrap=True)
+
+    any_download_ok = False
+
+    for s in statuses:
+        reach = "[green]OK[/green]" if s.ok else f"[red]{s.status_code or 'ERR'}[/red]"
+        lat = f"{latency_map[s.url]:.0f}ms"
+
+        count = search_counts.get(s.url)
+        search_col = str(count) if count is not None else "[dim]—[/dim]"
+
+        if not s.ok or probe_md5 is None:
+            resolve_col = "[dim]—[/dim]"
+            cdn_col = "[dim]—[/dim]"
+        else:
+            resolved = resolve_results.get(s.url)
+            if resolved is None:
+                resolve_col = "[red]FAIL[/red]"
+                cdn_col = "[dim]—[/dim]"
+            else:
+                resolve_col = "[green]OK[/green]"
+                cdn_code = cdn_statuses.get(s.url)
+                if cdn_code is None:
+                    cdn_col = "[red]ERR[/red]"
+                elif cdn_code < 400:
+                    cdn_col = f"[green]{cdn_code}[/green]"
+                    any_download_ok = True
+                else:
+                    cdn_col = f"[red]{cdn_code}[/red]"
+
+        table.add_row(s.url, reach, lat, search_col, resolve_col, cdn_col)
+
+    if aa_mirrors and aa_search_count is not None:
+        aa_search_col = str(aa_search_count) if aa_search_count else "[red]0[/red]"
+        table.add_row(
+            aa_mirrors[0] + " (aa)",
+            "[dim]—[/dim]",
+            "[dim]—[/dim]",
+            aa_search_col,
+            "[dim]N/A[/dim]",
+            "[dim]N/A[/dim]",
+        )
+
+    console.print(table)
+
+    if probe_md5:
+        console.print(f"[dim]probe MD5: {probe_md5}[/dim]")
+
+    if any_download_ok:
+        console.print("[green]verdict: downloads OK[/green]")
+    elif probe_md5:
+        console.print("[red]verdict: CDN not serving files (all mirrors blocked)[/red]")
+        raise typer.Exit(code=1)
+    else:
+        console.print("[yellow]verdict: could not obtain a probe MD5 (search failed?)[/yellow]")
+        raise typer.Exit(code=1)
 
 
 # ---------- inner helpers ---------------------------------------------------
