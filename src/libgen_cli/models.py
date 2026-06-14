@@ -33,6 +33,7 @@ class Book:
     extension: str = ""
     topic: Topic = Topic.NONFIC
     libgen_id: str = ""
+    source: str = "libgen"
 
     def to_dict(self) -> dict[str, Any]:
         d = asdict(self)
@@ -55,6 +56,7 @@ class Book:
             extension=str(data.get("extension", "")),
             topic=topic,
             libgen_id=str(data.get("libgen_id", "")),
+            source=str(data.get("source", "libgen")),
         )
 
 
