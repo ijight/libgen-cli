@@ -192,15 +192,30 @@ def resolve_aa_download_url(
     Returns a direct (binary-serving) URL if one of the slots responds
     correctly, otherwise None.  The caller should follow redirects when
     streaming the returned URL.
+
+    Visits the book detail page first to warm the DDoS-Guard session so
+    that the slow_download endpoints receive valid session cookies.
     """
     from libgen_cli.download import _is_html  # local import to avoid circularity
 
     for mirror in mirrors:
         base = mirror.rstrip("/")
+
+        # Warm the DDoS-Guard session; ignore errors — best-effort.
+        book_page_url = f"{base}/md5/{md5}"
+        try:
+            client.get(book_page_url)
+        except httpx.HTTPError:
+            pass
+
         for idx in range(_AA_SLOW_SERVER_COUNT):
             url = f"{base}/slow_download/{md5}/0/{idx}"
             try:
-                resp = client.head(url, follow_redirects=True)
+                resp = client.head(
+                    url,
+                    follow_redirects=True,
+                    headers={"Referer": book_page_url},
+                )
             except httpx.HTTPError:
                 continue
             if resp.status_code < 400 and not _is_html(resp.headers.get("content-type")):
